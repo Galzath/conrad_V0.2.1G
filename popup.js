@@ -65,7 +65,9 @@ function saveChatHistory() {
         }
 
         chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        setTimeout(() => {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 0);
     }
 
     // Adds a message to chat history, renders it, and saves history
@@ -227,11 +229,9 @@ function handleHistoryLoadingFinished() {
             }, 0); // Defer scroll to next event loop tick
         } else if (chatMessages) {
             // If no options were added, still ensure any prior message (like Conrad's question) is scrolled to.
-            // This case might be redundant if addMessageToChat already scrolled, but safe.
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            console.log("Scrolled chatMessages to bottom (no new options to reflow/async scroll for).");
-
         }
+        // else if block removed as renderMessage (called by addMessageToChat for the question) now handles its own async scroll,
+        // and the main if block above handles scrolling for options.
 
         // Disable user input field
         const userInputField = document.getElementById('message-input');
