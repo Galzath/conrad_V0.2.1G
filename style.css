@@ -1,0 +1,311 @@
+/* General Body Styling */
+body.popup-body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0; /* Removed fixed padding, handled by chat-container */
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  width: 350px; /* Reverted to popup width */ /* Default width for the popup */
+  display: flex; /* Use flexbox for main layout */
+  flex-direction: column; /* Stack chat container and input area vertically */
+  max-height: 500px; /* Reverted to original popup max-height */ /* Max height for the popup, helps with scroll */
+  overflow: hidden; /* Prevent body itself from scrolling */
+}
+
+/* Theme Variables */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --user-message-bg: #007bff;
+  --user-message-text: #ffffff;
+  --conrad-message-bg: #f0f0f0;
+  --conrad-message-text: #333333;
+  --button-bg: #007bff;
+  --button-text: #ffffff;
+  --button-hover-bg: #0056b3;
+  --input-bg: #ffffff;
+  --input-border: #cccccc;
+  --input-focus-border: #007bff;
+  --error-bg: #ffebee; /* Light red for error background */
+  --error-text: #c62828; /* Darker red for error text */
+  --link-color: #007bff;
+  --link-hover-color: #0056b3;
+  --border-color: #e0e0e0; /* For subtle borders like between header and chat */
+  --scrollbar-thumb-bg: #c1c1c1;
+  --scrollbar-track-bg: #f1f1f1;
+}
+
+.dark-mode {
+  --bg-color: #2e2e2e; /* Darker background */
+  --text-color: #f1f1f1; /* Lighter text */
+  --user-message-bg: #0056b3; /* Darker blue for user messages */
+  --user-message-text: #ffffff;
+  --conrad-message-bg: #3a3a3a; /* Dark grey for Conrad's messages */
+  --conrad-message-text: #f1f1f1;
+  --button-bg: #0056b3;
+  --button-text: #ffffff;
+  --button-hover-bg: #004085;
+  --input-bg: #3a3a3a; /* Dark input background */
+  --input-border: #555555; /* Lighter border for dark mode */
+  --input-focus-border: #007bff; /* Keep focus color distinct */
+  --error-bg: #5c2b29; /* Darker red for error background */
+  --error-text: #ffcdd2; /* Lighter red for error text */
+  --link-color: #4dabf7; /* Lighter blue for links */
+  --link-hover-color: #2196f3;
+  --border-color: #444444; /* Darker border color */
+  --scrollbar-thumb-bg: #555555;
+  --scrollbar-track-bg: #3a3a3a;
+}
+
+
+/* Chat Container */
+#chat-container {
+  flex-grow: 1; /* Allows chat messages to take available space */
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden; /* Manages overall scroll for chat area + header */
+  padding: 0 10px; /* Horizontal padding */
+}
+
+/* Header Controls Styling */
+#header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Important for vertical alignment of icons */
+  padding: 5px 0; /* Padding for the header area (top/bottom, no horizontal as parent has it) */
+  border-bottom: 1px solid var(--border-color); /* Separator line */
+  flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+/* Settings Icon Link Styling */
+#settings-link {
+  color: inherit; /* Inherit text color for the SVG */
+  text-decoration: none;
+  display: inline-flex; /* Helps align SVG properly */
+  align-items: center;
+  padding: 4px; /* Match clear button padding for consistency */
+  line-height: 1;
+}
+
+#settings-link svg {
+  display: block; /* Remove extra space below SVG */
+  width: 16px;
+  height: 16px;
+  fill: currentColor; /* Ensure SVG uses the link's text color */
+}
+
+#settings-link:hover {
+  opacity: 0.7; /* Simple hover effect, consistent with clear button */
+}
+
+
+/* Clear Chat Icon Button Styling */
+#clear-chat-button {
+  background: none;
+  border: none;
+  padding: 4px; /* Adjust padding as needed */
+  cursor: pointer;
+  color: inherit; /* Inherit text color for the SVG */
+  vertical-align: middle;
+  line-height: 1;
+}
+
+#clear-chat-button svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+#clear-chat-button:hover {
+  opacity: 0.7;
+}
+
+
+/* Chat Messages Area */
+#chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px 0;
+  word-wrap: break-word;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb-bg) var(--scrollbar-track-bg);
+}
+
+/* WebKit Scrollbar Styling */
+#chat-messages::-webkit-scrollbar {
+  width: 8px;
+}
+#chat-messages::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-bg);
+  border-radius: 4px;
+}
+#chat-messages::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-bg);
+  border-radius: 4px;
+}
+#chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+
+/* Individual Message Styling */
+.message {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-radius: 15px;
+  max-width: 85%;
+  line-height: 1.4;
+}
+
+.user-message {
+  background-color: var(--user-message-bg);
+  color: var(--user-message-text);
+  align-self: flex-end;
+  margin-left: auto;
+  border-bottom-right-radius: 5px;
+}
+
+.conrad-message {
+  background-color: var(--conrad-message-bg);
+  color: var(--conrad-message-text);
+  align-self: flex-start;
+  margin-right: auto;
+  border-bottom-left-radius: 5px;
+}
+
+.conrad-message .source-urls {
+  margin-top: 8px;
+  font-size: 0.85em;
+}
+
+.conrad-message .source-urls a {
+  color: var(--link-color);
+  text-decoration: none;
+  margin-right: 10px;
+  display: inline-block;
+  padding: 2px 0;
+}
+
+.conrad-message .source-urls a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+
+/* Input Area Styling */
+#input-area {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  flex-shrink: 0;
+}
+
+#message-input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid var(--input-border);
+  border-radius: 20px;
+  margin-right: 8px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  font-size: 1em;
+}
+
+#message-input:focus {
+  outline: none;
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+#send-button {
+  padding: 10px 15px;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.2s ease;
+}
+
+#send-button:hover {
+  background-color: var(--button-hover-bg);
+}
+
+
+/* Loading Indicator Styling */
+#loading-indicator {
+  text-align: center;
+  padding: 10px;
+  font-style: italic;
+  color: var(--text-color);
+  font-size: 0.9em;
+}
+
+/* Error Message Styling */
+#error-message {
+  padding: 10px;
+  text-align: center;
+  font-size: 0.9em;
+  display: none;
+}
+/* Specific class for error styling to differentiate from config message */
+.error-style {
+  background-color: var(--error-bg);
+  color: var(--error-text);
+  border-radius: 5px;
+  margin: 5px 10px;
+}
+
+/* General Link Styling (if any outside of specific contexts) */
+/* Removing generic a and a:hover as specific styles are preferred */
+/*
+a {
+  color: var(--link-color);
+}
+a:hover {
+  color: var(--link-hover-color);
+}
+*/
+/* Styles for icons in header were added above for #settings-link and #clear-chat-button */
+
+/* Clarification Options Styling */
+#clarification-options-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align buttons to the left like Conrad messages */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  gap: 8px; /* Adds space between option buttons */
+}
+
+.clarification-option {
+  background-color: var(--conrad-message-bg); /* Uses Conrad's background */
+  color: var(--conrad-message-text);           /* Uses Conrad's text color */
+  border: 1px solid var(--border-color);       /* Subtle border */
+  padding: 8px 15px;                           /* Padding */
+  border-radius: 20px;                         /* Pill shape for buttons */
+  margin: 0;                                   /* Remove default button margin, gap handles spacing */
+  cursor: pointer;
+  text-align: left;
+  display: inline-block;                       /* Allows button to size to content but can be laid out */
+  width: auto;                                 /* More explicit than fit-content for some browsers */
+  max-width: 100%;                             /* Don't overflow container */
+  transition: background-color 0.2s ease, border-color 0.2s ease; /* Smooth hover */
+  font-size: 0.9em;                            /* Slightly smaller font than main messages */
+  line-height: 1.4;                            /* Consistent line height */
+}
+
+/* Hover effect for light mode (default) */
+:not(.dark-mode) .clarification-option:hover {
+  background-color: #e0e0e0; /* Slightly darker than default --conrad-message-bg #f0f0f0 */
+  border-color: var(--input-focus-border); /* Highlight border */
+}
+
+/* Hover effect for dark mode */
+.dark-mode .clarification-option:hover {
+  background-color: #4a4a4a; /* Slightly lighter than dark mode --conrad-message-bg #3a3a3a */
+  border-color: var(--input-focus-border); /* Highlight border */
+}
